@@ -1,4 +1,4 @@
-﻿using Graceterm;
+using Graceterm;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.ApiExplorer;
@@ -27,12 +27,11 @@ namespace Otc.AspNetCore.ApiBoot
     {
         protected abstract ApiMetadata ApiMetadata { get; }
 
-        private static readonly string xmlCommentsFilePath =
+        private static readonly string XmlCommentsFilePath =
             Path.Combine(PlatformServices.Default.Application.ApplicationBasePath,
                 $"{PlatformServices.Default.Application.ApplicationName}.xml");
-        private static readonly string buildIdFilePath = Path.Combine(PlatformServices.Default.Application.ApplicationBasePath,
+        private static readonly string BuildIdFilePath = Path.Combine(PlatformServices.Default.Application.ApplicationBasePath,
                 "buildid");
-
 
         protected ApiBootStartup(IConfiguration configuration)
         {
@@ -48,9 +47,9 @@ namespace Otc.AspNetCore.ApiBoot
         {
             get
             {
-                if (File.Exists(buildIdFilePath))
+                if (File.Exists(BuildIdFilePath))
                 {
-                    var content = File.ReadAllText(buildIdFilePath);
+                    var content = File.ReadAllText(BuildIdFilePath);
 
                     return content?.Trim();
                 }
@@ -145,15 +144,15 @@ namespace Otc.AspNetCore.ApiBoot
                         // add a custom operation filter which sets default values
                         options.OperationFilter<SwaggerDefaultValues>();
 
-                        if (File.Exists(xmlCommentsFilePath))
+                        if (File.Exists(XmlCommentsFilePath))
                         {
                             // integrate xml comments
-                            options.IncludeXmlComments(xmlCommentsFilePath);
+                            options.IncludeXmlComments(XmlCommentsFilePath);
                         }
                         else
                         {
                             Log.Logger.Warning("Could not read Xml comments file, path '{XmlCommentsFilePath}' " +
-                                "not exists.", xmlCommentsFilePath);
+                                "not exists.", XmlCommentsFilePath);
                         }
                     });
             }
@@ -181,6 +180,10 @@ namespace Otc.AspNetCore.ApiBoot
             services.AddHttpContextAccessor();
             services.AddAspNetCoreHttpClientFactoryWithCorrelation();
 
+
+            //ANALISAR MUDANÇAS
+            //https://docs.microsoft.com/en-us/dotnet/core/compatibility/core-libraries/5.0/obsolete-consoleloggeroptions-properties
+
             services.AddLogging(configure =>
             {
                 configure.ClearProviders();
@@ -202,11 +205,15 @@ namespace Otc.AspNetCore.ApiBoot
                             .Enrich.WithMachineName();
 
                         if (ApiBootOptions.LoggingType == LoggingType.ApiBootFile)
+                        {
                             loggerConfiguration = loggerConfiguration.WriteTo
                                 .Async(a => a.File($"logs/log-.txt", rollingInterval: RollingInterval.Day));
+                        }
                         else
+                        {
                             loggerConfiguration = loggerConfiguration.WriteTo
                                 .Async(a => a.Console(new JsonFormatter()));
+                        }
                     }
 
                     Log.Logger = loggerConfiguration.CreateLogger();
