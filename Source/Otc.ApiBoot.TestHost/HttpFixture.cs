@@ -1,11 +1,10 @@
-﻿using Microsoft.AspNetCore;
+using System;
+using Microsoft.AspNetCore;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.TestHost;
 using Microsoft.Extensions.DependencyInjection;
-using Otc.Caching.DistributedCache.All;
 using Otc.AuthorizationContext.AspNetCore.Jwt;
-using System;
-using System.Collections.Generic;
+using Otc.Caching.DistributedCache.All;
 
 namespace Otc.AspNetCore.ApiBoot.TestHost
 {
