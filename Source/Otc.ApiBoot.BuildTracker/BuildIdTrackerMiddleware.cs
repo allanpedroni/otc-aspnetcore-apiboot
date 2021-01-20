@@ -1,7 +1,7 @@
 using Microsoft.AspNetCore.Http;
 using System.Threading.Tasks;
 
-namespace Otc.AspNetCore.ApiBoot
+namespace Otc.ApiBoot.BuildTracker
 {
     public class BuildIdTrackerMiddleware
     {

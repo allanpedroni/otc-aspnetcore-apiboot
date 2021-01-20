@@ -1,6 +1,6 @@
-﻿using Microsoft.AspNetCore.Builder;
+using Microsoft.AspNetCore.Builder;
 
-namespace Otc.AspNetCore.ApiBoot
+namespace Otc.ApiBoot.BuildTracker
 {
     public static class BuildIdTrackerExtensions
     {

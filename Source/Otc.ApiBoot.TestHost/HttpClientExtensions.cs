@@ -1,9 +1,9 @@
-﻿using Otc.AuthorizationContext.Abstractions;
+using Otc.AuthorizationContext.Abstractions;
 using Otc.AuthorizationContext.AspNetCore.Jwt;
 using System;
 using System.Net.Http;
 
-namespace Otc.AspNetCore.ApiBoot.TestHost
+namespace Otc.ApiBoot.TestHost
 {
     public static class HttpClientExtensions
     {
@@ -16,7 +16,7 @@ namespace Otc.AspNetCore.ApiBoot.TestHost
             }
 
             var token = new AuthorizationDataSerializer<IAuthorizationData>(
-                StaticConfiguration.jwtConfiguration).Serialize(authorizationData);
+                StaticConfiguration.JwtConfiguration).Serialize(authorizationData);
 
             if (httpClient.DefaultRequestHeaders.Contains("Authorization"))
             {

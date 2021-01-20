@@ -1,10 +1,10 @@
-﻿using Otc.AuthorizationContext.AspNetCore.Jwt;
+using Otc.AuthorizationContext.AspNetCore.Jwt;
 
-namespace Otc.AspNetCore.ApiBoot.TestHost
+namespace Otc.ApiBoot.TestHost
 {
     internal static class StaticConfiguration
     {
-        internal static readonly JwtConfiguration jwtConfiguration = new JwtConfiguration()
+        internal static readonly JwtConfiguration JwtConfiguration = new JwtConfiguration()
         {
             Audience = "ole tecnologia",
             Issuer = "ole tecnologia",

@@ -3,10 +3,11 @@ using Microsoft.AspNetCore;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.TestHost;
 using Microsoft.Extensions.DependencyInjection;
+using Otc.ApiBoot.Configuration;
 using Otc.AuthorizationContext.AspNetCore.Jwt;
 using Otc.Caching.DistributedCache.All;
 
-namespace Otc.AspNetCore.ApiBoot.TestHost
+namespace Otc.ApiBoot.TestHost
 {
     public class HttpFixture<TStartup>
         where TStartup : ApiBootStartup
@@ -15,11 +16,11 @@ namespace Otc.AspNetCore.ApiBoot.TestHost
         {
             var builder = WebHost.CreateDefaultBuilder()
                 .UseSetting(nameof(JwtConfiguration.Audience),
-                    StaticConfiguration.jwtConfiguration.Audience)
+                    StaticConfiguration.JwtConfiguration.Audience)
                 .UseSetting(nameof(JwtConfiguration.Issuer),
-                    StaticConfiguration.jwtConfiguration.Issuer)
+                    StaticConfiguration.JwtConfiguration.Issuer)
                 .UseSetting(nameof(JwtConfiguration.SecretKey),
-                    StaticConfiguration.jwtConfiguration.SecretKey)
+                    StaticConfiguration.JwtConfiguration.SecretKey)
                 .UseSetting(nameof(ApiBootOptions.EnableSwagger), "False")
                 .UseSetting(nameof(ApiBootOptions.EnableLogging), "False")
                 .UseSetting(nameof(DistributedCacheConfiguration.CacheStorageType),

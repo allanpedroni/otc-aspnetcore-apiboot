@@ -10,6 +10,9 @@ using Microsoft.AspNetCore.Mvc.ApiExplorer;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
+using Otc.ApiBoot.BuildTracker;
+using Otc.ApiBoot.Configuration;
+using Otc.ApiBoot.Controllers;
 using Otc.ApiBoot.Swagger.Configuration;
 using Otc.AuthorizationContext.AspNetCore.Jwt;
 using Otc.Caching.DistributedCache.All;
@@ -19,20 +22,8 @@ using Serilog;
 using Serilog.Exceptions;
 using Serilog.Formatting.Json;
 
-namespace Otc.AspNetCore.ApiBoot
+namespace Otc.ApiBoot
 {
-    //TO VIEW
-    //https://docs.microsoft.com/en-us/aspnet/core/migration/22-to-30?view=aspnetcore-5.0&tabs=visual-studio#use-mvc-without-endpoint-routing
-    //https://docs.microsoft.com/en-us/aspnet/core/migration/22-to-30?view=aspnetcore-5.0&tabs=visual-studio#add-package-references-for-removed-assemblies
-    //https://docs.microsoft.com/en-us/aspnet/core/migration/22-to-30?view=aspnetcore-5.0&tabs=visual-studio#health-checks-1
-    //  https://github.com/dotnet/aspnetcore/tree/master/src/Middleware/HealthChecks/src
-    //https://docs.microsoft.com/en-us/aspnet/core/migration/22-to-30?view=aspnetcore-5.0&tabs=visual-studio#razor-pages
-    //https://docs.microsoft.com/en-us/aspnet/core/fundamentals/routing?view=aspnetcore-5.0#routing-basics
-    //https://docs.microsoft.com/en-us/aspnet/core/migration/22-to-30?view=aspnetcore-5.0&tabs=visual-studio#mvc-controllers
-    //https://docs.microsoft.com/en-us/aspnet/core/migration/22-to-30?view=aspnetcore-5.0&tabs=visual-studio#mvc-service-registration
-    //https://www.infoworld.com/article/3535790/how-to-use-loggermessage-in-aspnet-core-30.html
-    //https://www.infoworld.com/article/3562355/how-to-use-api-versioning-in-aspnet-core.html
-
     public abstract class ApiBootStartup
     {
         protected ApiBootStartup(IConfiguration configuration)
@@ -77,8 +68,7 @@ namespace Otc.AspNetCore.ApiBoot
         public void ConfigureServices(IServiceCollection services)
         {
             services
-                .AddControllers(options =>
-                    options.Filters.Add<ExceptionFilter>())
+                .AddControllers(options => options.Filters.Add<ExceptionFilter>())
                 .AddMvcOptions(options =>
                     ConfigureMvcOptions(options))
                 .AddJsonOptions(options =>
@@ -151,17 +141,16 @@ namespace Otc.AspNetCore.ApiBoot
                     });
             }
         }
-        
+
         public virtual void ConfigureMvcOptions(MvcOptions options) { }
 
-        private void ConfigureJsonOptions(JsonOptions options)
+        public virtual void ConfigureJsonOptions(JsonOptions options)
         {
-            options.JsonSerializerOptions.PropertyNamingPolicy = JsonNamingPolicy.CamelCase; //default
-            options.JsonSerializerOptions.IgnoreNullValues = true; //IGNORE NULL VALUES ON RESPONSE
-                                                                   //options.JsonSerializerOptions.DefaultIgnoreCondition = JsonIgnoreCondition.WhenWritingNull;
+            options.JsonSerializerOptions.PropertyNamingPolicy = JsonNamingPolicy.CamelCase;
+            options.JsonSerializerOptions.IgnoreNullValues = true;
             options.JsonSerializerOptions.WriteIndented = false;
             options.JsonSerializerOptions.AllowTrailingCommas = false;
-            options.JsonSerializerOptions.NumberHandling = JsonNumberHandling.AllowReadingFromString; //default
+            options.JsonSerializerOptions.NumberHandling = JsonNumberHandling.AllowReadingFromString;
 
             if (ApiBootOptions.EnableStringEnumConverter)
             {
@@ -232,8 +221,6 @@ namespace Otc.AspNetCore.ApiBoot
         {
             if (ApiBootOptions.EnableSwagger)
             {
-                //services.AddSingleton(ApiMetadata);
-
                 var swaggerApiInfo = new SwaggerApiInfo()
                 {
                     ApiDescription = ApiMetadata.Description,

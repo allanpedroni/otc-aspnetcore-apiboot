@@ -1,7 +1,7 @@
-﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc;
 using System;
 
-namespace Otc.AspNetCore.ApiBoot
+namespace Otc.ApiBoot.Controllers
 {
     [ApiExplorerSettings(IgnoreApi = true)]
     [ApiVersionNeutral]

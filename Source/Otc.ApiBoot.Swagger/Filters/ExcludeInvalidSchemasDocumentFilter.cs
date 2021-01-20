@@ -12,7 +12,7 @@ namespace Otc.ApiBoot.Swagger
     {
         public void Apply(OpenApiDocument swaggerDoc, DocumentFilterContext context)
         {
-            var types = Assembly.GetExecutingAssembly()
+            var types = Assembly.GetEntryAssembly()
                 .GetTypes().ToList();
 
             //types.AddRange(new Type[] {

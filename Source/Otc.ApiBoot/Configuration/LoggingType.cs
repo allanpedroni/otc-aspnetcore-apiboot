@@ -1,4 +1,4 @@
-﻿namespace Otc.AspNetCore.ApiBoot
+namespace Otc.ApiBoot.Configuration
 {
     public enum LoggingType
     {

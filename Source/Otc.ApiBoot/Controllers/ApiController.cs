@@ -1,7 +1,7 @@
-﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
-namespace Otc.AspNetCore.ApiBoot
+namespace Otc.ApiBoot.Controllers
 {
     /// <summary>
     /// Controller base for api controllers with route for versioning.
