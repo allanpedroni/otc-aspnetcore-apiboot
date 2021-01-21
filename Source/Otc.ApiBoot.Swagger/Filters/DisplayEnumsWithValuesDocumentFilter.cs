@@ -92,14 +92,9 @@ namespace Otc.ApiBoot.Swagger
 
         private Type GetEnumTypeByName(string enumTypeName)
         {
-            return Assembly.GetExecutingAssembly()
+            return Assembly.GetEntryAssembly()
                     .GetTypes()
                     .FirstOrDefault(s => s.Name == enumTypeName);
-
-            //return AppDomain.CurrentDomain
-            //    .GetAssemblies()
-            //    .SelectMany(x => x.GetTypes())
-            //    .FirstOrDefault(x => x.Name == enumTypeName);
         }
 
         private string AddEnumValuesDescription(OpenApiSchema schema, string key)

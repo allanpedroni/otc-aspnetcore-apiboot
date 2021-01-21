@@ -43,7 +43,7 @@ namespace Otc.ApiBoot
         {
             get
             {
-                var fileName = $"{Assembly.GetExecutingAssembly().GetName().Name}.xml";
+                var fileName = $"{Assembly.GetEntryAssembly().GetName().Name}.xml";
                 return Path.Combine(AppContext.BaseDirectory, fileName);
             }
         }
